@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High School Musical Guessing Game</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f2d3e1;
+        color: #333;
+        text-align: center;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      .question {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .answers {
+        margin: 20px 0;
+      }
+      .answer {
+        display: block;
+        background-color: #ff99cc;
+        border: none;
+        padding: 10px;
+        margin: 10px 0;
+        width: 200px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 5px;
+      }
+      .answer:hover {
+        background-color: #ff66b3;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>High School Musical Guessing Game</h1>
+
+      <div id="question1" class="question-container">
+         <p class="question">Who is this character?</p>
+        <img src="Troy_Bolton.png" alt="Troy Bolton" width="200" />
+        <div class="answers">
+          <button class="answer" onclick="checkAnswer('question1', 1)">
+            Troy Bolton
+          </button>
+          <button class="answer" onclick="checkAnswer('question1', 2)">
+            Chad Danforth
+          </button>
+          <button class="answer" onclick="checkAnswer('question1', 3)">
+            Zeke Baylor
+          </button>
+        </div>
+      </div>
+
+      <div id="question2" class="question-container hidden">
+        <p class="question">Who is this character?</p>
+        <img src="gab.png" alt="Gabriella Montez" width="200" />
+        <div class="answers">
+          <button class="answer" onclick="checkAnswer('question2', 1)">
+            Gabriella Montez
+          </button>
+          <button class="answer" onclick="checkAnswer('question2', 2)">
+            Sharpay Evans
+          </button>
+          <button class="answer" onclick="checkAnswer('question2', 3)">
+            Martha Cox
+          </button>
+        </div>
+      </div>
+
+      <div id="question3" class="question-container hidden">
+        <p class="question">Who is this character?</p>
+        <img src="Taylor_McKessie.png" alt="Taylor McKessie" width="200" />
+        <div class="answers">
+          <button class="answer" onclick="checkAnswer('question3', 1)">
+            Taylor McKessie
+          </button>
+          <button class="answer" onclick="checkAnswer('question3', 2)">
+            Kelsie Nielsen
+          </button>
+          <button class="answer" onclick="checkAnswer('question3', 3)">
+            Tiara Gold
+          </button>
+        </div>
+      </div>
+
+      <div id="result" class="hidden">
+        <h2>Congratulations! You got all answers correct!</h2>
+      </div>
+
+      <div id="confetti" class="hidden">
+        <!-- Confetti animation can be added here later -->
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+      let correctAnswers = 0;
+
+      function checkAnswer(questionId, answerId) {
+        const correctAnswersMapping = {
+          question1: 1,
+          question2: 1,
+          question3: 1,
+        };
+
+        if (answerId === correctAnswersMapping[questionId]) {
+          correctAnswers++;
+        }
+
+        document.getElementById(questionId).classList.add("hidden");
+        const nextQuestionId =
+          "question" + (parseInt(questionId.replace("question", "")) + 1);
+        if (document.getElementById(nextQuestionId)) {
+          document.getElementById(nextQuestionId).classList.remove("hidden");
+        }
+
+        if (correctAnswers === 3) {
+          document.getElementById("result").classList.remove("hidden");
+          showConfetti();
+        }
+      }
+
+      function showConfetti() {
+        confetti({
+          particleCount: 200,
+          spread: 90,
+          origin: { y: 0.6 },
+        });
+      }
+    </script>
+  </body>
+</html>
